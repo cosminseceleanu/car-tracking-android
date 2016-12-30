@@ -3,10 +3,18 @@ package com.cosmin.cartracking.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Task {
+    public enum Status {
+        NEW,
+        FINISHED,
+        IN_PROGRESS
+    }
+
     @SerializedName("rid")
     private long id;
-    private long limitDate;
+    private Date limitDate;
     private double destinationLongitude;
     private double destinationLatitude;
     private String address;
@@ -20,11 +28,11 @@ public class Task {
         this.id = id;
     }
 
-    public long getLimitDate() {
+    public Date getLimitDate() {
         return limitDate;
     }
 
-    public void setLimitDate(long limitDate) {
+    public void setLimitDate(Date limitDate) {
         this.limitDate = limitDate;
     }
 
@@ -52,8 +60,8 @@ public class Task {
         this.address = address;
     }
 
-    public String getStatus() {
-        return status;
+    public Status getStatus() {
+        return Status.valueOf(status);
     }
 
     public void setStatus(String status) {

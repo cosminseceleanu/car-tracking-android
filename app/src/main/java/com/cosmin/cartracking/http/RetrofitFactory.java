@@ -1,10 +1,15 @@
 package com.cosmin.cartracking.http;
 
 
+import com.cosmin.cartracking.gson.DateDeserializer;
 import com.cosmin.cartracking.http.interceptors.AuthorizationInterceptor;
 import com.cosmin.cartracking.security.Security;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.text.DateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -23,7 +28,7 @@ public class RetrofitFactory {
     public Retrofit create() {
         return new Retrofit.Builder()
             .baseUrl(host)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(getGson()))
             .client(getHttpClient())
             .build();
     }
@@ -32,5 +37,11 @@ public class RetrofitFactory {
         return new OkHttpClient.Builder()
             .addInterceptor(new AuthorizationInterceptor(UNSECURED_PATHS, security))
             .build();
+    }
+
+    private Gson getGson() {
+        return new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL)
+                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .create();
     }
 }
