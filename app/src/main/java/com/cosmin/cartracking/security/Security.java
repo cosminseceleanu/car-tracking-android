@@ -30,7 +30,7 @@ public class Security {
             return false;
         }
 
-        return tokenParser.isExpired(getToken());
+        return !tokenParser.isExpired(getToken());
     }
 
     public void logout() {

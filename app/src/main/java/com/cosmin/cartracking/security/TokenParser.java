@@ -6,6 +6,7 @@ import android.util.Base64;
 import java.util.Date;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 
 
@@ -13,7 +14,11 @@ public class TokenParser {
     private static final String secret = "aaaaaa";
 
     public boolean isExpired(String token) {
-        return getExpiration(token).before(new Date());
+        try {
+            return getExpiration(token).before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
     }
 
     public Date getExpiration(String token) {
