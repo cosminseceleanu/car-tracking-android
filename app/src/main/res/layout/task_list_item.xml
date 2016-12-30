@@ -4,15 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/taskId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Id"/>
-    <TextView
-        android:id="@+id/taskStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/mt10"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Id: "
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/ts20"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/taskId"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/ts20"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="Data limita: "
+            android:textSize="@dimen/ts20"
+            android:paddingLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/taskLimitDate"
+            android:textSize="@dimen/ts15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+
+        <TextView
+            android:text="Status: "
+            android:textSize="@dimen/ts20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/taskStatus"
+            android:textSize="25sp"
+            android:background="@color/colorNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="Vezi Destinatie"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskSeeDetails"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:background="@color/colorPrimaryDark"
+            android:layout_weight="0.08"
+            android:backgroundTint="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
