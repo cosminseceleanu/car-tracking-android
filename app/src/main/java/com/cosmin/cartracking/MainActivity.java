@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cosmin.cartracking.common.TaskUpdater;
 import com.cosmin.cartracking.http.endpoints.TaskEndpoint;
 import com.cosmin.cartracking.model.PagedResponse;
 import com.cosmin.cartracking.model.Task;
@@ -36,7 +37,8 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new TasksListAdapter(this, R.layout.task_list_item);
+        TaskUpdater taskUpdater = new TaskUpdater(retrofitFactory, security.get());
+        adapter = new TasksListAdapter(this, R.layout.task_list_item, taskUpdater);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -124,6 +126,6 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
 
     private void startLocationService() {
         Intent intent = new Intent(this, LocationService.class);
-        startService(intent);
+//        startService(intent);
     }
 }

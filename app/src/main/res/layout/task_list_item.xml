@@ -1,70 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/mt10"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
+
         <TextView
-            android:text="Id: "
             android:layout_width="wrap_content"
-            android:textSize="@dimen/ts20"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Id: "
+            android:textSize="@dimen/ts20" />
+
         <TextView
             android:id="@+id/taskId"
             android:layout_width="wrap_content"
-            android:textSize="@dimen/ts20"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ts20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
         <TextView
-            android:text="Data limita: "
-            android:textSize="@dimen/ts20"
-            android:paddingLeft="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Data limita: "
+            android:textSize="@dimen/ts20" />
 
         <TextView
             android:id="@+id/taskLimitDate"
-            android:textSize="@dimen/ts15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ts15" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adresa: "
+            android:textSize="@dimen/ts20" />
+
+        <TextView
+            android:id="@+id/taskAdress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adresa nu a fost specificata(Vezi destinatia pe harta)"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:weightSum="2">
+        android:orientation="horizontal">
 
         <TextView
-            android:text="Status: "
-            android:textSize="@dimen/ts20"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Status: "
+            android:textSize="@dimen/ts20" />
+
         <TextView
             android:id="@+id/taskStatus"
-            android:textSize="25sp"
-            android:background="@color/colorNew"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
         <Button
-            android:text="Vezi Destinatie"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_height="wrap_content"
             android:id="@+id/taskSeeDetails"
             style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            android:layout_weight="0.08"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Vezi Destinatie" />
 
+        <Button
+            android:id="@+id/taskFinish"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:layout_marginLeft="5dp"
+            android:text="Finish" />
+
+        <Button
+            android:id="@+id/taskStart"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorInProgress"
+            android:backgroundTint="@color/colorInProgress"
+            android:layout_marginLeft="5dp"
+            android:text="Start" />
     </LinearLayout>
 
 

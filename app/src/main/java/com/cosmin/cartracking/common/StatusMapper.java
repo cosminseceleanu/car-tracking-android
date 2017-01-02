@@ -21,9 +21,9 @@ public class StatusMapper {
     }
     static {
         HashMap<Task.Status, String> map = new HashMap<>();
-        map.put(Task.Status.NEW, "Nou");
-        map.put(Task.Status.IN_PROGRESS, "In lucru");
-        map.put(Task.Status.FINISHED, "Finalizat");
+        map.put(Task.Status.NEW, "Task Nou");
+        map.put(Task.Status.IN_PROGRESS, "Task In lucru");
+        map.put(Task.Status.FINISHED, "Task Finalizat");
         messages = Collections.unmodifiableMap(map);
     }
 
