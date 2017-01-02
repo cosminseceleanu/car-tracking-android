@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.cosmin.cartracking.common.SharedPrefsStorage;
+import com.cosmin.cartracking.gson.GsonFactory;
 import com.cosmin.cartracking.model.User;
 import com.cosmin.cartracking.security.Exception.NotLoggedException;
 import com.google.gson.Gson;
@@ -22,7 +23,7 @@ public class Security {
         this.context = context;
         this.storage = new SharedPrefsStorage(context);
         this.tokenParser = new TokenParser();
-        this.gson = new Gson();
+        this.gson = GsonFactory.create();
     }
 
     public boolean isLogged() {

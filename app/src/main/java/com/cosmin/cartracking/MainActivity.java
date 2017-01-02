@@ -19,6 +19,7 @@ import com.cosmin.cartracking.model.PagedResponse;
 import com.cosmin.cartracking.model.Task;
 import com.cosmin.cartracking.model.TaskListResponse;
 import com.cosmin.cartracking.model.User;
+import com.cosmin.cartracking.service.LocationService;
 import com.cosmin.cartracking.ui.TasksListAdapter;
 
 import retrofit2.Call;
@@ -52,6 +53,7 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         ListView listView = (ListView) findViewById(R.id.tasks_list);
         listView.setAdapter(adapter);
         loadTasks();
+        startLocationService();
     }
 
     @Override
@@ -71,6 +73,7 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         int id = item.getItemId();
 
         if (id == R.id.nav_list_tasks) {
+            adapter.clear();
             loadTasks();
         } else if (id == R.id.nav_logout) {
             security.logout();
@@ -117,5 +120,10 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         TextView userEmail = (TextView) view.findViewById(R.id.userEmail);
         userName.setText(user.getName());
         userEmail.setText(user.getEmail());
+    }
+
+    private void startLocationService() {
+        Intent intent = new Intent(this, LocationService.class);
+        startService(intent);
     }
 }
