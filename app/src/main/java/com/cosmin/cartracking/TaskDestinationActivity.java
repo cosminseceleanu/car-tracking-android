@@ -56,10 +56,10 @@ public class TaskDestinationActivity extends FragmentActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        LatLng sydney = new LatLng(task.getDestinationLatitude(), task.getDestinationLongitude());
+        LatLng taskDest = new LatLng(task.getDestinationLatitude(), task.getDestinationLongitude());
         String title = String.format("Destinatie task: %s", task.getId());
-        this.googleMap.addMarker(new MarkerOptions().position(sydney).title(title));
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        this.googleMap.addMarker(new MarkerOptions().position(taskDest).title(title));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(taskDest));
         this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
         showMyLocation();
         buildGoogleApiClient();

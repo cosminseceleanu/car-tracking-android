@@ -11,8 +11,9 @@ import java.util.Date;
 public class GsonFactory {
     @NonNull
     public static Gson create() {
-        return new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL)
+        return new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(Date.class, new DateSerializer())
                 .create();
     }
 }
