@@ -126,6 +126,6 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
 
     private void startLocationService() {
         Intent intent = new Intent(this, LocationService.class);
-//        startService(intent);
+        startService(intent);
     }
 }

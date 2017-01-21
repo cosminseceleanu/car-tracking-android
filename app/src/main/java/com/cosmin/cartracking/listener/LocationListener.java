@@ -24,7 +24,11 @@ public class LocationListener implements android.location.LocationListener {
     public void onLocationChanged(Location location) {
         Log.e(TAG, "onLocationChanged: " + location);
         lastLocation.set(location);
-        taskLogPublisher.publish(createTaskLog(location), userid);
+        try {
+            taskLogPublisher.publish(createTaskLog(location), userid);
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
     }
 
     @Override
