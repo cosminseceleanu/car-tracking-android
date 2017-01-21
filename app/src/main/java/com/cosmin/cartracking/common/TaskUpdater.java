@@ -15,9 +15,8 @@ public class TaskUpdater {
     private User user;
 
     public interface TaskCallback {
-        public void onSuccess();
-        public void onFailure();
-
+        void onSuccess();
+        void onFailure();
     }
 
     public TaskUpdater(RetrofitFactory retrofitFactory, User user) {
@@ -46,6 +45,5 @@ public class TaskUpdater {
                 callback.onFailure();
             }
         });
-
     }
 }

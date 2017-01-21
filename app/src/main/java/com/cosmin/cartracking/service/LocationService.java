@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.cosmin.cartracking.mqtt.TaskLogPublisher;
 import com.cosmin.cartracking.listener.LocationListener;
-import com.cosmin.cartracking.mqtt.MqttClient;
+import com.cosmin.cartracking.mqtt.Mqtt;
 import com.cosmin.cartracking.security.Security;
 
 @SuppressWarnings({"MissingPermission"})
@@ -25,7 +25,7 @@ public class LocationService extends Service {
     private LocationListener[] locationListeners;
 
     private Security security;
-    private MqttClient mqttClient;
+    private Mqtt mqttClient;
     private TaskLogPublisher taskLogPublisher;
 
     @Override
@@ -38,7 +38,7 @@ public class LocationService extends Service {
         super.onCreate();
         Log.e(TAG, "onCreate");
         security = new Security(getApplicationContext());
-        mqttClient = new MqttClient(getApplicationContext());
+        mqttClient = new Mqtt();
         taskLogPublisher = new TaskLogPublisher(mqttClient);
         long userid = security.get().getId();
         locationListeners = new LocationListener[] {
