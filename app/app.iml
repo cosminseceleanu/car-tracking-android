@@ -192,7 +192,6 @@
     <orderEntry type="library" exported="" name="firebase-analytics-impl-9.0.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-3.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-lite-9.0.0" level="project" />
-    <orderEntry type="library" exported="" name="org.eclipse.paho.android.service-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-messaging-9.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-9.0.0" level="project" />

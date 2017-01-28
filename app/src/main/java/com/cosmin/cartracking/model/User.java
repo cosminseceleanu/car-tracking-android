@@ -8,6 +8,7 @@ public class User {
     private long id;
     private String email;
     private String name;
+    private long adminId;
 
     public long getId() {
         return id;
@@ -19,5 +20,13 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(long adminId) {
+        this.adminId = adminId;
     }
 }
