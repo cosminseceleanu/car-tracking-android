@@ -35,7 +35,7 @@
 
         <activity android:name=".TaskDestinationActivity" android:label="@string/title_activity_task_destination"/>
 
-        <service android:name=".service.LocationService" android:process=":location_service_car" />
+        <service android:name=".service.MqttService" android:process=":mqtt_service" />
     </application>
 
 </manifest>

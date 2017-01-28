@@ -20,7 +20,7 @@ import com.cosmin.cartracking.model.PagedResponse;
 import com.cosmin.cartracking.model.Task;
 import com.cosmin.cartracking.model.TaskListResponse;
 import com.cosmin.cartracking.model.User;
-import com.cosmin.cartracking.service.LocationService;
+import com.cosmin.cartracking.service.MqttService;
 import com.cosmin.cartracking.ui.TasksListAdapter;
 
 import retrofit2.Call;
@@ -125,7 +125,7 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
     }
 
     private void startLocationService() {
-        Intent intent = new Intent(this, LocationService.class);
+        Intent intent = new Intent(this, MqttService.class);
         startService(intent);
     }
 }

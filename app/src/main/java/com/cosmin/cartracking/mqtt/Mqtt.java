@@ -1,14 +1,10 @@
 package com.cosmin.cartracking.mqtt;
 
 
-import android.content.Context;
 import android.util.Log;
 
 import com.cosmin.cartracking.mqtt.exception.PublishException;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;

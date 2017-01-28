@@ -14,10 +14,8 @@ import com.cosmin.cartracking.mqtt.Mqtt;
 import com.cosmin.cartracking.security.Security;
 
 @SuppressWarnings({"MissingPermission"})
-public class LocationService extends Service {
-    public static final String BROADCAST_ACTION = "LocationService";
-
-    private static final String TAG = "location-service";
+public class MqttService extends Service {
+    private static final String TAG = "mqtt-service";
     private static final int LOCATION_INTERVAL = 3000;
     private static final float LOCATION_DISTANCE = 10f;
 
@@ -40,10 +38,9 @@ public class LocationService extends Service {
         security = new Security(getApplicationContext());
         mqttClient = new Mqtt();
         taskLogPublisher = new TaskLogPublisher(mqttClient);
-        long userid = security.get().getId();
         locationListeners = new LocationListener[] {
-            new LocationListener(LocationManager.GPS_PROVIDER, taskLogPublisher, userid),
-            new LocationListener(LocationManager.NETWORK_PROVIDER, taskLogPublisher, userid)
+            new LocationListener(LocationManager.GPS_PROVIDER, taskLogPublisher, security.get()),
+            new LocationListener(LocationManager.NETWORK_PROVIDER, taskLogPublisher, security.get())
         };
 
         initializeLocationManager();
