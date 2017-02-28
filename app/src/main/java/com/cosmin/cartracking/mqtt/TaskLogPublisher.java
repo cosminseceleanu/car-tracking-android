@@ -1,7 +1,6 @@
 package com.cosmin.cartracking.mqtt;
 
 import com.cosmin.cartracking.model.TaskLog;
-import com.cosmin.cartracking.mqtt.exception.PublishException;
 
 public class TaskLogPublisher {
     private final static String TOPIC = "user.%d.employee.%d.task.logs";
@@ -16,7 +15,7 @@ public class TaskLogPublisher {
         String topic = String.format(TOPIC, adminId, userid);
         try {
             mqttClient.publish(topic, taskLog);
-        } catch (PublishException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
