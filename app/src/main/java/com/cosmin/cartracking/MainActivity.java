@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cosmin.cartracking.common.FileLogger;
 import com.cosmin.cartracking.common.TaskUpdater;
 import com.cosmin.cartracking.http.endpoints.TaskEndpoint;
 import com.cosmin.cartracking.model.PagedResponse;

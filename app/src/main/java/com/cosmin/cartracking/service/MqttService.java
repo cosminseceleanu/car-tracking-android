@@ -16,8 +16,8 @@ import com.cosmin.cartracking.security.Security;
 @SuppressWarnings({"MissingPermission"})
 public class MqttService extends Service {
     private static final String TAG = "mqtt-service";
-    private static final int LOCATION_INTERVAL = 3000;
-    private static final float LOCATION_DISTANCE = 10f;
+    private static final int LOCATION_INTERVAL = 30000;
+    private static final float LOCATION_DISTANCE = 0;
 
     private LocationManager locationManager = null;
     private LocationListener[] locationListeners;
@@ -60,6 +60,7 @@ public class MqttService extends Service {
                 }
             }
         }
+        mqttClient.disconnect();
     }
 
     private void initializeLocationManager() {
@@ -72,21 +73,22 @@ public class MqttService extends Service {
     private void requestLocations() {
         try {
             locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    locationListeners[1]);
+                LocationManager.NETWORK_PROVIDER,
+                LOCATION_INTERVAL,
+                LOCATION_DISTANCE,
+                locationListeners[1]
+            );
+
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                LOCATION_INTERVAL,
+                LOCATION_DISTANCE,
+                locationListeners[0]
+            );
         } catch (java.lang.SecurityException ex) {
             Log.i(TAG, "fail to request location update, ignore", ex);
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "network provider does not exist, " + ex.getMessage());
-        }
-        try {
-            locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
-                    locationListeners[0]);
-        } catch (java.lang.SecurityException ex) {
-            Log.i(TAG, "fail to request location update, ignore", ex);
-        } catch (IllegalArgumentException ex) {
-            Log.d(TAG, "gps provider does not exist " + ex.getMessage());
         }
     }
 }
