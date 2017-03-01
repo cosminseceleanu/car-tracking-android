@@ -52,14 +52,8 @@ public class Mqtt {
     }
 
     public void publish(String topic, Object payload) {
-        if (!isConnected) {
-            try {
-                this.connect();
-                flushRejectedQueue();
-            } catch (RuntimeException e) {
-                addToRejectedQueue(topic, payload);
-                return;
-            }
+        if (checkConnection(topic, payload)) {
+            return;
         }
         try {
             client.publish(topic, messageFactory.create(payload));
@@ -68,6 +62,19 @@ public class Mqtt {
             Log.d(TAG, "Failed to publish to topic. Message: " + e.getMessage());
             addToRejectedQueue(topic, payload);
         }
+    }
+
+    private boolean checkConnection(String topic, Object payload) {
+        if (!isConnected) {
+            try {
+                this.connect();
+                flushRejectedQueue();
+            } catch (RuntimeException e) {
+                addToRejectedQueue(topic, payload);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void disconnect() {
@@ -129,6 +136,7 @@ public class Mqtt {
         options.setPassword(pass.toCharArray());
         options.setAutomaticReconnect(true);
         options.setConnectionTimeout(10);
+        options.setMaxInflight(200);
 
         return options;
     }
