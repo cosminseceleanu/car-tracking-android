@@ -24,6 +24,8 @@ import com.cosmin.cartracking.model.User;
 import com.cosmin.cartracking.service.MqttService;
 import com.cosmin.cartracking.ui.TasksListAdapter;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,7 +57,7 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         setupMenu(navigationView.getHeaderView(0));
         ListView listView = (ListView) findViewById(R.id.tasks_list);
         listView.setAdapter(adapter);
-        loadTasks();
+        loadTasks(Task.Status.NEW.toString());
         startLocationService();
     }
 
@@ -75,13 +77,19 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_list_tasks) {
+        if (id == R.id.nav_tasks_new) {
             adapter.clear();
-            loadTasks();
+            loadTasks(Task.Status.NEW.toString());
         } else if (id == R.id.nav_logout) {
             security.logout();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_tasks_in_progress) {
+            adapter.clear();
+            loadTasks(Task.Status.IN_PROGRESS.toString());
+        } else if (id == R.id.nav_tasks_finished) {
+            adapter.clear();
+            loadTasks(Task.Status.FINISHED.toString());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,11 +97,16 @@ public class MainActivity extends AbstractActivity implements NavigationView.OnN
         return true;
     }
 
-    private void loadTasks() {
+    private void loadTasks(String status) {
         Log.d("main", "load tasks");
+        HashMap<String, String> filters = new HashMap<>();
+        filters.put("page", String.valueOf(currentPage));
+        filters.put("size", String.valueOf(SIZE));
+        filters.put("employee.id", String.valueOf(security.get().getId()));
+        filters.put("status", status);
         Call<PagedResponse<TaskListResponse>> call = retrofitFactory.create()
                 .create(TaskEndpoint.class)
-                .get(security.get().getId(), currentPage, SIZE);
+                .search(filters);
 
         call.enqueue(new Callback<PagedResponse<TaskListResponse>>() {
             @Override

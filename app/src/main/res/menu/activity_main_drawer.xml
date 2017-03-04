@@ -3,9 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_list_tasks"
+            android:id="@+id/nav_tasks_new"
+            android:icon="@drawable/ic_play_light"
+            android:title="Task-uri noi" />
+
+        <item
+            android:id="@+id/nav_tasks_in_progress"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Lista task-uri" />
+            android:title="Task-uri in lucru" />
+
+        <item
+            android:id="@+id/nav_tasks_finished"
+            android:icon="@drawable/ic_pause_light"
+            android:title="Task-uri finalizate" />
     </group>
 
     <item android:title="Cont">
