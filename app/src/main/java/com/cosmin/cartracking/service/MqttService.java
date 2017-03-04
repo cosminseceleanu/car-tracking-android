@@ -1,6 +1,7 @@
 package com.cosmin.cartracking.service;
 
 
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.util.Log;
 import com.cosmin.cartracking.mqtt.TaskLogPublisher;
 import com.cosmin.cartracking.listener.LocationListener;
 import com.cosmin.cartracking.mqtt.Mqtt;
+import com.cosmin.cartracking.mqtt.listener.AlertsListener;
 import com.cosmin.cartracking.security.Security;
 
 @SuppressWarnings({"MissingPermission"})
@@ -34,7 +36,7 @@ public class MqttService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
         security = new Security(getApplicationContext());
         mqttClient = new Mqtt();
         taskLogPublisher = new TaskLogPublisher(mqttClient);
@@ -42,6 +44,10 @@ public class MqttService extends Service {
             new LocationListener(LocationManager.GPS_PROVIDER, taskLogPublisher, security.get()),
             new LocationListener(LocationManager.NETWORK_PROVIDER, taskLogPublisher, security.get())
         };
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        AlertsListener listener = new AlertsListener(security.get().getId(),
+                getApplicationContext(), notificationManager);
+        mqttClient.subscribe(listener);
 
         initializeLocationManager();
         requestLocations();
@@ -56,7 +62,7 @@ public class MqttService extends Service {
                 try {
                     locationManager.removeUpdates(listener);
                 } catch (Exception ex) {
-                    Log.i(TAG, "fail to remove location listners, ignore", ex);
+                    Log.i(TAG, "fail to remove location listeners, ignore", ex);
                 }
             }
         }
@@ -64,7 +70,7 @@ public class MqttService extends Service {
     }
 
     private void initializeLocationManager() {
-        Log.e(TAG, "initializeLocationManager");
+        Log.d(TAG, "initializeLocationManager");
         if (locationManager == null) {
             locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }

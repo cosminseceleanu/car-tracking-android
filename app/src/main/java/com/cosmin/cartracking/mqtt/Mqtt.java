@@ -3,6 +3,7 @@ package com.cosmin.cartracking.mqtt;
 
 import android.util.Log;
 
+import com.cosmin.cartracking.mqtt.listener.MqttListener;
 import com.cosmin.cartracking.mqtt.model.RejectedMessage;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -13,6 +14,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -21,12 +24,13 @@ public class Mqtt {
     private final static String uri = "tcp://192.168.100.4:1883";
     private final static String username = "admin";
     private final static String pass = "admin";
-    private final static String TAG = "mqtt-client";
+    public final static String TAG = "mqtt-client";
 
     private MqttClient client;
     private MqttMessageFactory messageFactory;
     private boolean isConnected = false;
     private Queue<RejectedMessage> rejectedMessageQueue;
+    private List<MqttListener> subscriptions = new ArrayList<>();
 
     public Mqtt() {
         this.messageFactory = new MqttMessageFactory();
@@ -45,7 +49,7 @@ public class Mqtt {
             isConnected = true;
             Log.d(TAG, "successful connected to mqtt server");
         } catch (MqttException e) {
-            Log.d(TAG, "failed to connect mqtt server");
+            Log.d(TAG, "failed to connect to mqtt server");
 
             throw new RuntimeException(e);
         }
@@ -64,17 +68,28 @@ public class Mqtt {
         }
     }
 
+    public void subscribe(MqttListener listener) {
+        subscriptions.add(listener);
+    }
+
     private boolean checkConnection(String topic, Object payload) {
-        if (!isConnected) {
-            try {
-                this.connect();
-                flushRejectedQueue();
-            } catch (RuntimeException e) {
-                addToRejectedQueue(topic, payload);
-                return true;
-            }
+        if (isConnected) {
+            return false;
         }
-        return false;
+        try {
+            Log.d(TAG, "connecting...");
+            this.connect();
+            for (MqttListener listener: subscriptions) {
+                client.subscribe(listener.getTopic(), listener);
+            }
+            flushRejectedQueue();
+            return false;
+        } catch (RuntimeException e) {
+            addToRejectedQueue(topic, payload);
+            return true;
+        } catch (MqttException e) {
+            return true;
+        }
     }
 
     public void disconnect() {
@@ -101,12 +116,15 @@ public class Mqtt {
             }
 
             @Override
-            public void connectionLost(Throwable cause) {
-                isConnected = false;
-            }
+            public void connectionLost(Throwable cause) {}
 
             @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {}
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+                topic = topic.replace("/", ".");
+                for (MqttListener listener: subscriptions) {
+                    listener.messageArrived(topic, message);
+                }
+            }
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {}
