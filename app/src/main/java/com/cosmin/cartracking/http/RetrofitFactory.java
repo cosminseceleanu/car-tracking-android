@@ -18,7 +18,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitFactory {
-    private final static String host = "http://192.168.100.4:8080";
+    private final static String dev_host = "http://192.168.100.4:8080";
+    private final static String host = "http://35.189.207.159/:8080";
     private final static List<String> UNSECURED_PATHS = Arrays.asList("/login");
     private Security security;
 

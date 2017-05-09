@@ -21,7 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public class Mqtt {
-    private final static String uri = "tcp://192.168.100.4:1883";
+    private final static String uri_dev = "tcp://192.168.100.4:1883";
+    private final static String uri = "tcp://35.189.207.159:1883";
     private final static String username = "admin";
     private final static String pass = "admin";
     public final static String TAG = "mqtt-client";
