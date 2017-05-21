@@ -17,6 +17,8 @@ public class Task {
     private Date limitDate;
     private double destinationLongitude;
     private double destinationLatitude;
+    private double sourceLatitude;
+    private double sourceLongitude;
     private String address;
     private String status;
 
@@ -62,6 +64,22 @@ public class Task {
 
     public Status getStatus() {
         return Status.valueOf(status);
+    }
+
+    public double getSourceLatitude() {
+        return sourceLatitude;
+    }
+
+    public void setSourceLatitude(double sourceLatitude) {
+        this.sourceLatitude = sourceLatitude;
+    }
+
+    public double getSourceLongitude() {
+        return sourceLongitude;
+    }
+
+    public void setSourceLongitude(double sourceLongitude) {
+        this.sourceLongitude = sourceLongitude;
     }
 
     public void setStatus(String status) {
