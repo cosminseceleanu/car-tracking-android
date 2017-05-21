@@ -57,8 +57,13 @@ public class TaskDestinationActivity extends FragmentActivity implements OnMapRe
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         LatLng taskDest = new LatLng(task.getDestinationLatitude(), task.getDestinationLongitude());
+        LatLng taskSource = new LatLng(task.getSourceLatitude(), task.getSourceLongitude());
         String title = String.format("Destinatie task: %s", task.getId());
         this.googleMap.addMarker(new MarkerOptions().position(taskDest).title(title));
+        this.googleMap.addMarker(new MarkerOptions().position(taskSource)
+                .title("Sursa preluare transport")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        );
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(taskDest));
         this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
         showMyLocation();

@@ -1,16 +1,10 @@
 package com.cosmin.cartracking.http;
 
 
-import com.cosmin.cartracking.gson.DateDeserializer;
 import com.cosmin.cartracking.gson.GsonFactory;
 import com.cosmin.cartracking.http.interceptors.AuthorizationInterceptor;
 import com.cosmin.cartracking.security.Security;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.text.DateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
